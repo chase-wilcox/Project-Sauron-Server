@@ -1,16 +1,20 @@
 import express from 'express';
 import http from 'http';
 import WebSocket from 'ws';
-import { OpenAIApi, Configuration } from 'openai';
+import {Configuration, OpenAIApi} from 'openai';
 
-const OPENAI_API_KEY = 'FN5v5ldbtyZQKPhznjftT3BlbkFJRrFuDq6TbhvlP54sfTj7';
+const OPENAI_API_KEY = require('./key.mjs');
+console.log(OPENAI_API_KEY);
+
 
 // Define your OpenAI instance
 const configuration = new Configuration({
+  organization: "org-lFZ9TR9p1vgOrJHtomepQ0W6",
   apiKey: OPENAI_API_KEY
 });
 
 const openai = new OpenAIApi(configuration);
+const response = await openai.listEngines();
 
 // Function to list files using OpenAI API
 async function listFiles() {
