@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 app.use(express.json()); // Enable JSON parsing for requests
 
-app.post('/analyze', async (req, res) => {
+app.get('/', async (req, res) => {
   const frameData = req.body.frames;
 
 // Process frameData as needed
