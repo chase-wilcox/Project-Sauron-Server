@@ -1,70 +1,94 @@
-import express from 'express';
-import http from 'http';
-import sharp from 'sharp';
-import axios from 'axios';
+// import express from 'express';
+// import https from 'https';
+// import sharp from 'sharp';
+// import axios from 'axios';
 import { OPENAI_API_KEY } from './key.mjs';
 
-const app = express();
-const server = http.createServer(app);
+// const app = express();
+// const server = https.createServer(app);
 
-app.use(express.json()); // Enable JSON parsing for requests
+// app.use(express.json()); // Enable JSON parsing for requests
 
-app.get('/', async (req, res) => {
-  const frameData = req.body.frames;
+// app.post('/frames', async (req, res) => {
+//   const frameData = req.body.frames;
 
-// Process frameData as needed
-// Decode the image
-const image = sharp(frameData);
+//   // Log that the server received frames
+//   console.log('Received frames from the app:', frameData);
 
-// Resize the image to a specific width and height
-image.resize(800, 600);
+//   // Process frameData as needed
+//   const image = sharp(frameData);
+//   image.resize(800, 600);
+//   image.toFormat('jpeg');
+//   image.toBuffer(async (err, processedFrame) => {
+//     if (err) {
+//       console.error('Error processing frame:', err);
+//       return;
+//     }
 
-// Convert the image to a different format (e.g., PNG, JPEG)
-const pic = image.toFormat('jpeg');
-const fs = require('fs');
-const path = require('path');
-const filePath = path.join(__dirname, '/picture.jpeg');
-pic.toFile(filePath, function(err) {
-        // error handling
-      });
-// var transformer = sharp()
-//     .rotate()
-//     .resize(500,500)
-//     .toFile(filepath, function(err) {
-//       // error handling
-//     });
+//     // Log that the frame has been processed
+//     console.log('Frame processed:', processedFrame);
 
-filestream.pipe(transformer);
-// Get the processed image as a Buffer
-image.toBuffer((err, processedFrame) => {
-  if (err) {
-    console.error('Error processing frame:', err);
-    return;
-  }
+//     // Make request to OpenAI API
+//     try {
+//       const response = await axios.post('https://api.openai.com/v1/frames', {
+//         frames: processedFrame
+//       }, {
+//         headers: {
+//           'Authorization': `Bearer ${OPENAI_API_KEY}`,
+//           'Content-Type': 'application/json'
+//         }
+//       });
 
-  // Processed frame (Buffer) is ready for further use
-});
-  // Make request to OpenAI API
-  try {
-    const response = await axios.post('https://api.openai.com/v1/analyze', {
-      frames: frameData
-    }, {
+//       const analysisResults = response.data;
+
+//       // Log the analysis results
+//       console.log('Analysis results:', analysisResults);
+
+//       // Send the analysis results back to the app
+//       res.json({ type: 'analysis', data: analysisResults });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Internal server error' });
+//     }
+//   });
+// });
+
+
+// const PORT = 3000;
+
+// server.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
+
+
+// sending frames to a webserver (please)
+
+// Function to update the frame image on the webpage
+function updateFrameImage(frameData) {
+  const frameImage = document.getElementById('frameImage');
+  frameImage.src = `data:image/jpeg;base64, ${frameData}`;
+}
+
+// Function to send frames to the server
+function sendFramesToServer(frames) {
+  fetch('https://146.190.175.179/frames', {
+      method: 'POST',
       headers: {
-        'Authorization': `Bearer ${OPENAI_API_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
+          'Content-Type': 'application/json',
+          'Authorization': OPENAI_API_KEY
+      },
+      body: JSON.stringify({ frames })
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Frames sent successfully');
+      // Optionally, you can do something with the response from the server
+  })
+  .catch(error => console.error('Error sending frames:', error));
+}
 
-    const analysisResults = response.data;
-    res.json({ type: 'analysis', data: analysisResults });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-const PORT = process.env.PORT || 3000;
-
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/analyze`);
-});
+// Call this function when you want to send frames
+function processFrame(frameData) {
+  sendFramesToServer(frameData);
+  updateFrameImage(frameData);
+}
