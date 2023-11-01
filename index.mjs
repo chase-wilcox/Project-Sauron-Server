@@ -82,12 +82,11 @@ function sendFramesToServer(frames) {
   .then(response => response.json())
   .then(data => {
       console.log('Frames sent successfully');
-      // Optionally, you can do something with the response from the server
   })
   .catch(error => console.error('Error sending frames:', error));
 }
 
-// Call this function when you want to send frames
+// sending frames function
 function processFrame(frameData) {
   sendFramesToServer(frameData);
   updateFrameImage(frameData);
