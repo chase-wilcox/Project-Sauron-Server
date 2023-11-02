@@ -2,7 +2,7 @@
 // // import https from 'https';
 // // import sharp from 'sharp';
 // // import axios from 'axios';
-// import { OPENAI_API_KEY } from './key.cjs';
+import { OPENAI_API_KEY } from './key.mjs';
 
 // // const app = express();
 // // const server = https.createServer(app);
@@ -93,7 +93,7 @@
 // }
 
 
-const http = require('http');
+import http from 'http'
 const hostname = '146.190.175.179';
 const port = 3000;
 const server = http.createServer((req, res) => {
@@ -103,4 +103,5 @@ const server = http.createServer((req, res) => {
 });
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(OPENAI_API_KEY)
 });

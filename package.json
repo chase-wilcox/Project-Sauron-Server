@@ -2,9 +2,11 @@
   "name": "project-sauron-server",
   "version": "1.0.0",
   "main": "index.js",
+  
   "scripts": {
     "start" : "node index.cjs"
   },
+  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,6 +19,7 @@
     "postman": "^0.2.0",
     "sharp": "^0.32.6",
     "websocket": "^1.0.34",
-    "ws": "^8.14.2"
+    "ws": "^8.14.2",
+    "type": "module"
   }
 }
