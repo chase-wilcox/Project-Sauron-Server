@@ -1,7 +1,7 @@
-// // import express from 'express';
-// // import https from 'https';
-// // import sharp from 'sharp';
-// // import axios from 'axios';
+import express from 'express';
+import https from 'https';
+import sharp from 'sharp';
+import axios from 'axios';
 import { OPENAI_API_KEY } from './key.mjs';
 
 // // const app = express();
@@ -54,8 +54,6 @@ import { OPENAI_API_KEY } from './key.mjs';
 // // });
 
 
-// // const PORT = 3000;
-
 // // server.listen(PORT, () => {
 // //   console.log(`Server is running on port ${PORT}`);
 // // });
@@ -93,14 +91,28 @@ import { OPENAI_API_KEY } from './key.mjs';
 // }
 
 
-import http from 'http'
+import http from 'http';
+
 const hostname = '146.190.175.179';
 const port = 3000;
+
 const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+  if (req.method === 'GET' && req.url === '/frames') {
+    // Simulate some asynchronous processing (replace this with actual frame processing)
+    setTimeout(() => {
+      const frameData = 'frames'; // Need actual frame data
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ frames: frameData }));
+    }, 2000); // Simulated processing time of 2 seconds
+  } else {
+    // other requests
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('This server is running\n');
+  }
 });
+
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
