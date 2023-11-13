@@ -91,7 +91,6 @@ import { OPENAI_API_KEY } from './key.mjs';
 // }
 
 
-import https from 'https';
 
 const hostname = '146.190.175.179';
 const port = 3000;
