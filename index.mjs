@@ -91,12 +91,12 @@ import { OPENAI_API_KEY } from './key.mjs';
 // }
 
 
-import http from 'http';
+import https from 'https';
 
 const hostname = '146.190.175.179';
 const port = 3000;
 
-const server = http.createServer((req, res) => {
+const server = https.createServer((req, res) => {
   if (req.method === 'GET' && req.url === '/frames') {
     // Simulate some asynchronous processing (replace this with actual frame processing)
     setTimeout(() => {
