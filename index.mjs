@@ -96,8 +96,9 @@ const hostname = '146.190.175.179';
 const port = 3000;
 
 const server = https.createServer((req, res) => {
+  console.log(`Received request for ${req.url}`);
   if (req.method === 'GET' && req.url === '/frames') {
-    // Simulate some asynchronous processing (replace this with actual frame processing)
+    // Simulate some asynchronous processing (replace with actual frame processing)
     setTimeout(() => {
       const frameData = 'frames'; // Need actual frame data
       res.writeHead(200, { 'Content-Type': 'application/json' });
