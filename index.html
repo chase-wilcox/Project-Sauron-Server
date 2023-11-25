@@ -1,32 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera Frames</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Viewer</title>
 </head>
 <body>
-    <img id="frameImage" src="" alt="Frame">
-    <script>
-        // Function to update the frame image on the webpage
-        function updateFrameImage(frameData) {
-          const frameImage = document.getElementById('frameImage');
-          frameImage.src = `data:image/jpeg;base64, ${frameData}`;
-        }
-
-        // Function to request frames from the server
-        function requestFrames() {
-          fetch('http://146.190.175.179:3000/frames')
-            .then(response => response.json())
-            .then(data => {
-              const framesData = data.frames;
-              updateFrameImage(framesData);
-            })
-            .catch(error => console.error('Error fetching frames:', error));
-        }
-
-        // Call the function to request frames
-        requestFrames();
-    </script>
+  <h1>Video Viewer</h1>
+  <video width="640" height="360" controls>
+    <source src="/videos/your_video_filename.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 </body>
 </html>
