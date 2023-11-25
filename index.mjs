@@ -7,8 +7,8 @@ import { readFileSync } from 'fs';
 
 const hostname = '146.190.175.179';
 const port = 3000;
-const privateKey = readFileSync('path/to/private-key.pem');
-const certificate = readFileSync('path/to/certificate.pem');
+// const privateKey = readFileSync('path/to/private-key.pem');
+// const certificate = readFileSync('path/to/certificate.pem');
 
 
 
