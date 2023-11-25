@@ -1,7 +1,7 @@
 import http from 'http'
 import multer from 'multer'
 import fs from 'fs'
-import { Express } from 'express';
+import express from 'express';
 
 const app = express();
 const port = 3000;
