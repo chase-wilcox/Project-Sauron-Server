@@ -7,7 +7,6 @@ import { OPENAI_API_KEY } from './key.mjs';
 const hostname = '146.190.175.179';
 const port = 3000;
 const fs = require('fs');
-const https = require('https');
 
 const options = {
   key: fs.readFileSync('path/to/private-key.pem'),
