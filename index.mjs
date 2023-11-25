@@ -29,14 +29,17 @@ app.post('/uploadVideo', upload.single('video'), (req, res) => {
   // Access the uploaded video file
   const videoBuffer = req.file.buffer;
 
-  // Save the video file to disk or process it as needed
+  // Generate a timestamp for the filename
   const timestamp = Date.now();
+
+  // Save the video file to disk with a timestamp-based filename
   const videoPath = path.join(__dirname, 'path/to/save', `video_${timestamp}.mp4`);
   fs.writeFileSync(videoPath, videoBuffer);
 
   // Respond to the client
   res.status(200).json({ message: 'Video uploaded successfully' });
 });
+
 
 
 app.listen(port, () => {
