@@ -3,15 +3,13 @@ import https from 'https';
 import sharp from 'sharp';
 import axios from 'axios';
 import { OPENAI_API_KEY } from './key.mjs';
+import { readFileSync } from 'fs';
 
 const hostname = '146.190.175.179';
 const port = 3000;
-const fs = require('fs');
+const privateKey = readFileSync('path/to/private-key.pem');
+const certificate = readFileSync('path/to/certificate.pem');
 
-const options = {
-  key: fs.readFileSync('path/to/private-key.pem'),
-  cert: fs.readFileSync('path/to/certificate.pem'),
-};
 
 
 const server = https.createServer((req, res) => { //all the server logic
