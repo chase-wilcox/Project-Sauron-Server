@@ -1,4 +1,4 @@
-const http = require('http');
+import http from 'http'
 
 const hostname = '146.190.175.179';
 const port = 3000;
