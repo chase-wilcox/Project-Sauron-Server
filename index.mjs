@@ -1,50 +1,25 @@
-import express from 'express';
-import multer from 'multer';
-import { OPENAI_API_KEY } from './key.mjs';
-import https from 'https';
-import { readFileSync } from 'fs';
+const http = require('http');
 
 const hostname = '146.190.175.179';
 const port = 3000;
 
-const app = express();
-const upload = multer({ dest: 'uploads/' }); // Specify the directory to store uploaded files
-
-app.post('/uploadVideo', upload.single('video'), (req, res) => {
-  try {
-    // Access the uploaded file
-    const videoFile = req.file;
-    if (!videoFile) {
-      return res.status(400).json({ error: 'No video file uploaded' });
-    }
-
-    // Implement your logic to process the video file (e.g., send to OpenAI)
-    // Replace the following line with your actual processing logic
-    const frameData = 'frames';
-
-    // Simulate asynchronous processing
+const server = http.createServer((req, res) => {
+  console.log(`Received request for ${req.url}`);
+  if (req.method === 'POST' && req.url === '/uploadVideo') {
+    // Simulate some asynchronous processing (replace with actual frame processing)
     setTimeout(() => {
-      res.status(200).json({ frames: frameData });
-    }, 2000);
-  } catch (error) {
-    console.error('Error handling video upload:', error);
-    res.status(500).json({ error: 'Internal server error' });
+      const frameData = 'frames'; // Need actual frame data
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ frames: frameData }));
+    }, 2000); // Simulated processing time of 2 seconds
+  } else {
+    // other requests
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('This server is running\n');
   }
 });
 
-app.get('/', (req, res) => {
-  res.status(200).send('This server is running');
-});
-
-const server = https.createServer(
-  {
-    // Specify your SSL configuration (privateKey and certificate)
-    // key: privateKey,
-    // cert: certificate,
-  },
-  app
-);
-
 server.listen(port, hostname, () => {
-  console.log(`Server running at https://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
