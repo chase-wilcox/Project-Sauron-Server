@@ -36,9 +36,10 @@ app.post('/uploadVideo', upload.single('video'), (req, res) => {
   const videoPath = path.join(__dirname, 'path/to/save', `video_${timestamp}.mp4`);
   fs.writeFileSync(videoPath, videoBuffer);
 
-  // Respond to the client
-  res.status(200).json({ message: 'Video uploaded successfully' });
+  // Respond to the client with a 200 OK
+  res.status(200).send('Video uploaded successfully');
 });
+
 
 
 
