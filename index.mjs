@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/uploadVideo', upload.single('video'), (req, res) => {
+  try{
   // Access the uploaded video file
   const videoBuffer = req.file.buffer;
   console.log(req.body)
@@ -40,7 +41,11 @@ app.post('/uploadVideo', upload.single('video'), (req, res) => {
   fs.writeFileSync(videoPath, videoBuffer);
 
   // Respond to the client with a 200 OK
-  res.status(200).send('Video uploaded successfully');
+  res.status(200).send('Video uploaded successfully');}
+  catch (error){
+    console.log(error)
+  }
+  
 });
 
 
