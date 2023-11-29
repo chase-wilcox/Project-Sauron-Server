@@ -5,7 +5,7 @@ import path from 'path';
 
 const app = express();
 const port = 3000;
-const storage = multer.memoryStorage();  // Change this to store files on disk if needed
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.use(express.json());
@@ -28,6 +28,9 @@ app.get('/', (req, res) => {
 app.post('/uploadVideo', upload.single('video'), (req, res) => {
   // Access the uploaded video file
   const videoBuffer = req.file.buffer;
+  console.log(req.body)
+  console.log(req.params)
+  console.log(req.headers)
 
   // Generate a timestamp for the filename
   const timestamp = Date.now();
